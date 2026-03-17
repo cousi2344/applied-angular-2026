@@ -1,6 +1,7 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { PageLayout } from '@ht/shared/ui-common/layouts/page';
+import { counterStore } from '../counter-store';
 
 @Component({
   selector: 'app-demos-pages-counter',
@@ -8,7 +9,7 @@ import { PageLayout } from '@ht/shared/ui-common/layouts/page';
   template: `<app-ui-page title="Counter">
     <div>
       <button
-        [disabled]="shouldBeDisabled()"
+        [disabled]="counterStore.shouldDisableDecrement()"
         (click)="decrement()"
         class="btn btn-circle btn-warning"
       >
@@ -18,7 +19,11 @@ import { PageLayout } from '@ht/shared/ui-common/layouts/page';
       <button (click)="increment()" class="btn btn-circle btn-success">+</button>
     </div>
     <div class="p-8">
-      <button [disabled]="shouldBeDisabled()" (click)="reset()" class="btn btn-md btn-primary">
+      <button
+        [disabled]="counterStore.shouldDisableReset()"
+        (click)="reset()"
+        class="btn btn-md btn-primary"
+      >
         Reset
       </button>
     </div>
@@ -29,13 +34,12 @@ import { PageLayout } from '@ht/shared/ui-common/layouts/page';
   styles: ``,
 })
 export class CounterPage {
-  current = signal(0);
+  counterStore = inject(counterStore);
+  current = this.counterStore.current;
 
   title = inject(Title);
 
-  shouldBeDisabled = computed(() => this.current() === 0);
-
-  emoji = computed(() => '💾'.repeat(this.current()));
+  emoji = computed(() => '💾'.repeat(this.counterStore.current()));
 
   constructor() {
     effect(() => {
@@ -44,14 +48,14 @@ export class CounterPage {
   }
 
   increment() {
-    this.current.update((x) => x + 1);
+    this.counterStore.increment();
   }
 
   decrement() {
-    this.current.update((x) => x - 1);
+    this.counterStore.decrement();
   }
 
   reset() {
-    this.current.set(0);
+    this.counterStore.reset();
   }
 }
