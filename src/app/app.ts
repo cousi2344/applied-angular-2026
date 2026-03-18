@@ -119,5 +119,7 @@ export class App {
     { path: '/demos', title: 'Signals', icon: 'lucideSignpostBig' },
 
     { path: '/counter', title: 'Counter', icon: 'lucideClock' },
+
+    { path: '/resources', title: 'Developer Resources', icon: 'lucideNewspaper' },
   ]);
 }

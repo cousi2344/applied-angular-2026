@@ -9,19 +9,19 @@ import { counterStore } from '../counter-store';
   template: `<app-ui-page title="Counter">
     <div>
       <button
+        class="btn btn-circle btn-warning"
         [disabled]="counterStore.shouldDisableDecrement()"
         (click)="counterStore.decrement()"
-        class="btn btn-circle btn-warning"
       >
         -
       </button>
       <span class="text-3xl p-4">{{ currentCount() }}</span>
-      <button (click)="counterStore.increment()" class="btn btn-circle btn-primary">+</button>
+      <button class="btn btn-circle btn-primary" (click)="counterStore.increment()">+</button>
     </div>
     <div class="p-8">
       <button
-        [disabled]="counterStore.shouldDisableReset()"
         class="btn btn-primary"
+        [disabled]="counterStore.shouldDisableReset()"
         (click)="counterStore.reset()"
       >
         Reset

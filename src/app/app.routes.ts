@@ -27,6 +27,13 @@ const realRoutes: Routes = [
     loadChildren: () =>
       import('./areas/counter/counter-landing/counter.routes').then((r) => r.counterFeatureRoutes),
   },
+  {
+    path: 'resources',
+    loadChildren: () =>
+      import('./areas/resources/resources-landing/resources.routes').then(
+        (r) => r.resourcesFeatureRoutes,
+      ),
+  },
 ];
 
 const devRoutes: Routes = [
