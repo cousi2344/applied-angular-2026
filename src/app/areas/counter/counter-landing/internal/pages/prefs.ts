@@ -1,7 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { PageLayout } from '@ht/shared/ui-common/layouts/page';
-
-export type CounterIncrementOptions = 1 | 3 | 5;
+import { CounterIncrementOption, counterStore } from '../counter-store';
 
 @Component({
   selector: 'app-home-pages-prefs',
@@ -9,22 +8,22 @@ export type CounterIncrementOptions = 1 | 3 | 5;
   template: `<app-ui-page title="Preferences">
     <button
       class="btn"
-      [disabled]="counterIncrementValue() === 1"
-      (click)="updateCounterIncrementValue(1)"
+      [disabled]="counterStore.incrementOption() === 1"
+      (click)="counterStore.setIncrementOption(1)"
     >
       1
     </button>
     <button
       class="btn"
-      [disabled]="counterIncrementValue() === 3"
-      (click)="updateCounterIncrementValue(3)"
+      [disabled]="counterStore.incrementOption() === 3"
+      (click)="counterStore.setIncrementOption(3)"
     >
       3
     </button>
     <button
       class="btn"
-      [disabled]="counterIncrementValue() === 5"
-      (click)="updateCounterIncrementValue(5)"
+      [disabled]="counterStore.incrementOption() === 5"
+      (click)="counterStore.setIncrementOption(5)"
     >
       5
     </button>
@@ -32,9 +31,11 @@ export type CounterIncrementOptions = 1 | 3 | 5;
   styles: ``,
 })
 export class PrefsPage {
+  counterStore = inject(counterStore);
+
   counterIncrementValue = signal(1);
 
-  updateCounterIncrementValue(value: CounterIncrementOptions) {
+  updateCounterIncrementValue(value: CounterIncrementOption) {
     this.counterIncrementValue.set(value);
   }
 }
