@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { PageLayout } from '@ht/shared/ui-common/layouts/page';
+import { Fizzbuzz } from './fizzbuzz';
 
 @Component({
   selector: 'app-home-pages-counter',
-  imports: [PageLayout],
+  imports: [PageLayout, Fizzbuzz],
   template: `<app-ui-page title="Counter">
     <div>
       <button (click)="decrement()" class="btn btn-circle btn-warning">-</button>
@@ -12,6 +13,9 @@ import { PageLayout } from '@ht/shared/ui-common/layouts/page';
     </div>
     <div class="p-8">
       <button class="btn btn-primary" (click)="reset()">Reset</button>
+    </div>
+    <div class="p-8">
+      <app-counter-fizzbuzz [value]="counterValue()"></app-counter-fizzbuzz>
     </div>
   </app-ui-page>`,
   styles: ``,
