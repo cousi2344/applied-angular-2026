@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { PageLayout } from '@ht/shared/ui-common/layouts/page';
-import { Fizzbuzz } from './fizzbuzz';
+import { Fizzbuzz } from '../fizzbuzz';
 
 @Component({
   selector: 'app-home-pages-counter',
