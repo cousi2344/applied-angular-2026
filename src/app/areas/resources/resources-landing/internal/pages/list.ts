@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 import { PageLayout } from '@ht/shared/ui-common/layouts/page';
 import { ResourceApiItemModel } from '../types';
 import { Card } from '../../widgets/card';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-resources-pages-list',
-  imports: [PageLayout, Card],
+  imports: [PageLayout, Card, RouterLink],
   template: `<app-ui-page title="Developer Resource List">
     <!-- <pre>{{ linksResource.value() | json }}</pre> -->
     @if (linksResource.isLoading()) {
@@ -17,6 +18,7 @@ import { Card } from '../../widgets/card';
           <app-resources-widgets-card [title]="link.title">
             <div class="justify-end card-actions">
               <a class="btn btn-primary" [href]="link.url" target="_blank">Buy Now</a>
+              <a class="btn btn-primary" [routerLink]="[link.id]">Details</a>
             </div>
           </app-resources-widgets-card>
         } @empty {

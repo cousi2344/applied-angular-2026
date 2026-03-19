@@ -35,7 +35,13 @@ export class AddPage {
         action: async (form) => {
           const val = form().value();
 
-          console.log(val);
+          await fetch('/api/resources', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(val),
+          });
         },
         onInvalid: (form) => {
           form().errorSummary()[0]?.fieldTree().focusBoundControl();

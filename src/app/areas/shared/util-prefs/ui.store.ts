@@ -1,4 +1,4 @@
-import { effect } from '@angular/core';
+import { DOCUMENT, effect, inject } from '@angular/core';
 import { patchState, signalStore, withHooks, withMethods, withState } from '@ngrx/signals';
 
 type AppUiState = {
@@ -34,12 +34,14 @@ export const appUiStore = signalStore(
 
       patchState(store, { theme, sidebarOpen });
 
+      const docService = inject(DOCUMENT); // Need to use the doc service instead of directly using document if you are doing SSR
+
       effect(() => {
         const themeSign = store.theme();
         const sidebarOpenSign = store.sidebarOpen();
         localStorage.setItem(sidebarKey, String(sidebarOpenSign));
         localStorage.setItem(themeKey, themeSign);
-        document.documentElement.setAttribute('data-theme', themeSign);
+        docService.documentElement.setAttribute('data-theme', themeSign);
       });
     },
   })),
